@@ -3,5 +3,5 @@
 - link:
     ~/.zprofile: zprofile
     ~/.zshrc: zshrc
-
-
+    ~/.config/nvim: nvim
+    ~/.gitconfig: gitconfig
