@@ -3,3 +3,5 @@
 [user]
         email = cdavenport626@gmail.com
         name = Connor Davenport
+[core]
+	excludesfile = /Users/connor.davenport/.gitignore

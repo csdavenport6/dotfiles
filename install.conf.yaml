@@ -5,3 +5,4 @@
     ~/.zshrc: zshrc
     ~/.config/nvim: nvim
     ~/.gitconfig: gitconfig
+    ~/.gitignore: gitignore
