@@ -27,6 +27,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'dracula/vim'
 Plug 'scrooloose/nerdtree'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
