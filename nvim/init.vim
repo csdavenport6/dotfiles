@@ -29,6 +29,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'dracula/vim'
 Plug 'scrooloose/nerdtree'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'pangloss/vim-javascript'
+Plug 'MaxMEllon/vim-jsx-pretty'
 
 call plug#end()
 
