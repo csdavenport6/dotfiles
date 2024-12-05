@@ -140,3 +140,4 @@ export CC="/Library/Developer/CommandLineTools/usr/bin"
 
 alias vim="nvim"
 alias lg="lazygit"
+alias ls="eza -al"
