@@ -136,3 +136,7 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # Advent of Code token
 export AOC_TOKEN="53616c7465645f5ffc54015bfe93eaef69382e0a65cc7b90ec6698e7ecca1510bb96f325818ca5b513a52a621f6b6287dcaba309857ca8105a5bd9ca3b103a3c"
+export CC="/Library/Developer/CommandLineTools/usr/bin"
+
+alias vim="nvim"
+alias lg="lazygit"

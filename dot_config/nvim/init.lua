@@ -11,3 +11,12 @@ vim.cmd.colorscheme "catppuccin"
 
 LineNumberColors()
 
+-- Setup lsp for terraform
+-- I know this looks wierd, but I promise this is what the docs said to do
+require'lspconfig'.terraformls.setup{}
+vim.api.nvim_create_autocmd({"BufWritePre"}, {
+  pattern = {"*.tf", "*.tfvars"},
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+})
