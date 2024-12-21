@@ -62,6 +62,8 @@ This function should only modify configuration layer settings."
        treemacs-use-git-mode 'deferred )
      ( mu4e :variables
        mu4e-installation-path "/opt/homebrew/Cellar/mu/1.12.7/share/emacs/site-lisp/mu/mu4e" )
+     ( scheme :variables
+       scheme-implementations '(chicken))
      ruby-on-rails
      sql
      auto-completion
@@ -72,7 +74,8 @@ This function should only modify configuration layer settings."
      git
      lsp
      dap
-     yaml
+     ( yaml :variables
+       yaml-enable-lsp t )
      html
      pdf
      latex
@@ -84,6 +87,7 @@ This function should only modify configuration layer settings."
      multiple-cursors
      syntax-checking
      version-control
+     dash
      )
 
 
@@ -551,7 +555,7 @@ It should only modify the values of Spacemacs settings."
    ;; Color highlight trailing whitespace in all prog-mode and text-mode derived
    ;; modes such as c++-mode, python-mode, emacs-lisp, html-mode, rst-mode etc.
    ;; (default t)
-   dotspacemacs-show-trailing-whitespace t
+   dotspacemacs-show-trailing-whitespace nil
 
    ;; Delete whitespace while saving buffer. Possible values are `all'
    ;; to aggressively delete empty line and long sequences of whitespace,
@@ -561,7 +565,7 @@ It should only modify the values of Spacemacs settings."
    ;; which major modes have whitespace cleanup enabled or disabled
    ;; by default.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'changed
 
    ;; If non-nil activate `clean-aindent-mode' which tries to correct
    ;; virtual indentation of simple modes. This can interfere with mode specific
@@ -662,6 +666,8 @@ before packages are loaded."
     (setq dired-use-ls-dired t
           insert-directory-program "/opt/homebrew/bin/gls"
           dired-listing-switches "-aBhl --group-directories-first"))
+
+  (setq dired-dwim-target t)
 
   ;; Allow C-h to trigger which-key before it is done automatically
   (setq which-key-show-early-on-C-h t)
@@ -831,9 +837,10 @@ This function is called at the very end of Spacemacs initialization."
    '(lsp-ruby-lsp-use-bundler t)
    '(lsp-solargraph-server-command '("solargraph" "stdio"))
    '(lsp-solargraph-use-bundler t)
-   '(org-agenda-files '("~/org/notes.org"))
+   '(org-agenda-files
+     '("~/org/personal.org" "/Users/connor.davenport/org/work.org" "/Users/connor.davenport/org/notes.org"))
    '(package-selected-packages
-     '(docker aio dockerfile-mode plantuml-mode company-auctex company-math company-reftex evil-tex auctex lsp-latex consult math-symbol-lists csv-mode json-mode json-navigator json-reformat json-snatcher import-js grizzl js-doc js2-refactor multiple-cursors livid-mode nodejs-repl npm-mode skewer-mode js2-mode tern pdf-view-restore pdf-tools tablist all-the-icons-ivy-rich counsel-projectile flyspell-correct-ivy ivy-avy ivy-hydra ivy-purpose ivy-rich ivy-xref ivy-yasnippet lsp-ivy smex company-emoji emoji-cheat-sheet-plus slack ts circe oauth2 spaceline-all-the-icons memoize treemacs-all-the-icons helm-mu exec-path-from-shell company-web web-completion-data counsel-css emmet-mode helm-css-scss impatient-mode pug-mode sass-mode haml-mode scss-mode slim-mode tagedit web-beautify web-mode yaml-mode org-modern verb org-journal org-roam-ui websocket simple-httpd org-roam company-terraform feature-mode projectile-rails inflections sql-indent terraform-mode hcl-mode add-node-modules-path bundler chruby counsel-gtags counsel swiper ivy dap-mode lsp-docker bui enh-ruby-mode ggtags minitest prettier-js rake rbenv robe inf-ruby rspec-mode rubocop rubocopfmt ruby-hash-syntax ruby-refactor ruby-test-mode ruby-tools rvm seeing-is-believing treemacs-nerd-icons nerd-icons lsp-treemacs treemacs cfrs pfuture neotree catppuccin-theme org shell-pop smeargle terminal-here treemacs-magit magit with-editor transient magit-section unfill vterm yasnippet-snippets yasnippet ws-butler writeroom-mode winum which-key wgrep vundo volatile-highlights vi-tilde-fringe uuidgen undo-fu-session undo-fu treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org term-cursor symon symbol-overlay string-inflection string-edit-at-point spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-descbinds helm-comint helm-ag google-translate golden-ratio flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-demos elisp-def editorconfig dumb-jump drag-stuff dotenv-mode disable-mouse dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line))
+     '(counsel-dash dash-docs dash-at-point geiser-chicken geiser xref docker aio dockerfile-mode plantuml-mode company-auctex company-math company-reftex evil-tex auctex lsp-latex consult math-symbol-lists csv-mode json-mode json-navigator json-reformat json-snatcher import-js grizzl js-doc js2-refactor multiple-cursors livid-mode nodejs-repl npm-mode skewer-mode js2-mode tern pdf-view-restore pdf-tools tablist all-the-icons-ivy-rich counsel-projectile flyspell-correct-ivy ivy-avy ivy-hydra ivy-purpose ivy-rich ivy-xref ivy-yasnippet lsp-ivy smex company-emoji emoji-cheat-sheet-plus slack ts circe oauth2 spaceline-all-the-icons memoize treemacs-all-the-icons helm-mu exec-path-from-shell company-web web-completion-data counsel-css emmet-mode helm-css-scss impatient-mode pug-mode sass-mode haml-mode scss-mode slim-mode tagedit web-beautify web-mode yaml-mode org-modern verb org-journal org-roam-ui websocket simple-httpd org-roam company-terraform feature-mode projectile-rails inflections sql-indent terraform-mode hcl-mode add-node-modules-path bundler chruby counsel-gtags counsel swiper ivy dap-mode lsp-docker bui enh-ruby-mode ggtags minitest prettier-js rake rbenv robe inf-ruby rspec-mode rubocop rubocopfmt ruby-hash-syntax ruby-refactor ruby-test-mode ruby-tools rvm seeing-is-believing treemacs-nerd-icons nerd-icons lsp-treemacs treemacs cfrs pfuture neotree catppuccin-theme org shell-pop smeargle terminal-here treemacs-magit magit with-editor transient magit-section unfill vterm yasnippet-snippets yasnippet ws-butler writeroom-mode winum which-key wgrep vundo volatile-highlights vi-tilde-fringe uuidgen undo-fu-session undo-fu treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org term-cursor symon symbol-overlay string-inflection string-edit-at-point spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-descbinds helm-comint helm-ag google-translate golden-ratio flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-demos elisp-def editorconfig dumb-jump drag-stuff dotenv-mode disable-mouse dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line))
    '(pdf-view-use-imagemagick t)
    '(spacemacs-spaceline-additional-segments nil)
    '(treemacs-collapse-dirs 3)
