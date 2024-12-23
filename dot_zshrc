@@ -113,7 +113,7 @@ export NVM_DIR="$HOME/.nvm"
 # Address overly strict process forking conditions, thanks Apple
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 ### Added by node-macos-certs on Thu Jun  6 14:43:46 EDT 2024 ###
-export NODE_EXTRA_CA_CERTS="/Users/connor.davenport/.local/node-macos-certs/certs.pem"
+export NODE_EXTRA_CA_CERTS="/Users/connordavenport/.local/node-macos-certs/certs.pem"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -124,7 +124,7 @@ eval "$(pyenv init -)"
 eval "$(fzf --zsh)"
 
 # Created by `pipx` on 2024-07-10 16:51:57
-export PATH="$PATH:/Users/connor.davenport/.local/bin"
+export PATH="$PATH:/Users/connordavenport/.local/bin"
 export PATH="$PATH:/usr/local/bin"
 
 # zoxide
