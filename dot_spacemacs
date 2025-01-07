@@ -47,8 +47,6 @@ This function should only modify configuration layer settings."
        ruby-backend 'lsp)
      ( ivy :variables )
      ( org  :variables
-       org-enable-roam-support t
-       org-enable-roam-ui t
        org-project-capture-projects-file "TODOS.org"
        org-enable-modern-support t
        org-enable-verb-support t)
@@ -76,7 +74,7 @@ This function should only modify configuration layer settings."
      lsp
      dap
      ( yaml :variables
-       yaml-enable-lsp t )
+       yaml-enable-lsp nil )
      html
      sml
      (haskell :variables
@@ -94,7 +92,7 @@ This function should only modify configuration layer settings."
        syntax-checking-window-position 'right
        syntax-checking-window-width 60)
      ( spell-checking :variables
-       enable-flyspell-auto-completion t)
+       enable-flyspell-auto-completion nil)
      version-control
      (ibuffer :variables
               ibuffer-group-buffers-by 'modes)
@@ -286,8 +284,13 @@ It should only modify the values of Spacemacs settings."
    ;; package can be defined with `:package', or a theme can be defined with
    ;; `:location' to download the theme package, refer the themes section in
    ;; DOCUMENTATION.org for the full theme specifications.
-   dotspacemacs-themes '(catppuccin
-                         spacemacs-light)
+   dotspacemacs-themes '(
+                         gruvbox-dark-medium
+                         gruvbox-dark-hard
+                         gruvbox-dark-soft
+                         zenburn )
+
+
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -666,6 +669,7 @@ before packages are loaded."
   ;; (setq frame-title-format '((:eval
   ;;                             (connor/title-prepare dotspacemacs-frame-title-format))))
 
+  ;; Use the command key as the meta key
   (setq mac-command-modifier 'meta)
 
   (setq auth-sources '("~/.authinfo") )
@@ -673,15 +677,11 @@ before packages are loaded."
   ;; Point ispell to aspell
   (setq ispell-program-name "/opt/homebrew/bin/aspell")
 
-  ;; (when (memq window-system '(mac ns x))
-  ;;   (exec-path-from-shell-initialize))
+  ;; (load-theme 'catppuccin :no-confirm)
+  ;; (setq catppuccin-flavor 'macchiato)
+  ;; (catppuccin-reload)
 
-  (load-theme 'catppuccin :no-confirm)
-  (setq catppuccin-flavor 'frappe)
-  (catppuccin-reload)
-
-  ;; (setq lsp-disabled-clients '(rubocop-ls))
-
+  ;; Dired things
   (when (string= system-type "darwin")
     (setq dired-use-ls-dired t
           insert-directory-program "/opt/homebrew/bin/gls"
@@ -699,6 +699,14 @@ before packages are loaded."
 
   (setq frame-title-format nil)
   (setq ns-use-proxy-icon nil)
+
+  ;; bm setup for bookmarks
+  ;; keymaps
+  (spacemacs/declare-prefix "o" "custom")
+  (spacemacs/declare-prefix "ob" "bookmarks")
+  (spacemacs/set-leader-keys "obb" 'bm-toggle)
+  (spacemacs/set-leader-keys "obn" 'bm-next)
+  (spacemacs/set-leader-keys "obp" 'bm-previous)
 
   ;; ---------------------------------------------------------------------------
   ;; Configuration for Org mode
@@ -723,6 +731,7 @@ before packages are loaded."
             ("j" "Journal Entry" entry
              (file+datetree "journal.org")
              "* %U\n%?")))
+    (setq org-agenda-todo-ignore-scheduled t)
     )
 
   ;; ---------------------------------------------------------------------------
@@ -848,16 +857,14 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(custom-enabled-themes '(catppuccin))
-   '(custom-safe-themes
-     '("7fd8b914e340283c189980cd1883dbdef67080ad1a3a9cc3df864ca53bdc89cf" "bbb13492a15c3258f29c21d251da1e62f1abb8bbd492386a673dcfab474186af" "f1c7c231dd0cdef8d8b2123dba79663e5616acdb1a9237f5fb358074f5d63518" default))
    '(helm-descbinds-disable-which-key nil)
    '(lsp-rubocop-use-bundler t)
    '(lsp-ruby-lsp-library-directories '("~/.rbenv/" "~/.rvm/" "~/.gem/" "~/.asdf"))
    '(lsp-ruby-lsp-use-bundler t)
    '(lsp-solargraph-server-command '("solargraph" "stdio"))
    '(lsp-solargraph-use-bundler t)
-   '(org-agenda-files '("~/org/personal.org" "~/org/work.org" "~/org/notes.org"))
+   '(org-agenda-files
+     '("~/org/journal.org" "/Users/connor.davenport/org/personal.org" "/Users/connor.davenport/org/work.org" "/Users/connor.davenport/org/notes.org"))
    '(package-selected-packages
      '(afternoon-theme alect-themes ample-theme ample-zen-theme anti-zenburn-theme apropospriate-theme badwolf-theme birds-of-paradise-plus-theme bubbleberry-theme busybee-theme cherry-blossom-theme chocolate-theme clues-theme color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow cyberpunk-theme dakrone-theme darkmine-theme darkokai-theme darktooth-theme django-theme doom-themes dracula-theme ef-themes espresso-theme exotica-theme eziam-themes farmhouse-themes flatland-theme flatui-theme gandalf-theme gotham-theme grandshell-theme gruber-darker-theme gruvbox-theme hc-zenburn-theme hemisu-theme heroku-theme inkpot-theme ir-black-theme jazz-theme jbeans-theme kaolin-themes light-soap-theme lush-theme madhat2r-theme majapahit-themes material-theme minimal-theme modus-themes moe-theme molokai-theme monochrome-theme monokai-theme mustang-theme naquadah-theme noctilux-theme obsidian-theme occidental-theme oldlace-theme omtose-phellack-themes organic-green-theme phoenix-dark-mono-theme phoenix-dark-pink-theme planet-theme professional-theme purple-haze-theme railscasts-theme rebecca-theme reverse-theme seti-theme smyx-theme soft-charcoal-theme soft-morning-theme soft-stone-theme solarized-theme soothe-theme autothemer spacegray-theme subatomic-theme subatomic256-theme sublime-themes sunny-day-theme tango-2-theme tango-plus-theme tangotango-theme tao-theme toxi-theme twilight-anti-bright-theme twilight-bright-theme twilight-theme ujelly-theme underwater-theme white-sand-theme zen-and-art-theme zenburn-theme zonokai-emacs hackernews bm company-restclient know-your-http-well ob-http ob-restclient ox-pandoc pandoc-mode restclient ibuffer-projectile auto-dictionary flyspell-correct flyspell-popup attrap cmm-mode company-cabal dante lcr eldoc flycheck-haskell haskell-snippets hindent hlint-refactor lsp-haskell haskell-mode ob-sml sml-mode zig-mode reformatter counsel-dash dash-docs dash-at-point geiser-chicken geiser xref docker aio dockerfile-mode plantuml-mode company-auctex company-math company-reftex evil-tex auctex lsp-latex consult math-symbol-lists csv-mode json-mode json-navigator json-reformat json-snatcher import-js grizzl js-doc js2-refactor multiple-cursors livid-mode nodejs-repl npm-mode skewer-mode js2-mode tern pdf-view-restore pdf-tools tablist all-the-icons-ivy-rich counsel-projectile flyspell-correct-ivy ivy-avy ivy-hydra ivy-purpose ivy-rich ivy-xref ivy-yasnippet lsp-ivy smex company-emoji emoji-cheat-sheet-plus slack ts circe oauth2 spaceline-all-the-icons memoize treemacs-all-the-icons helm-mu exec-path-from-shell company-web web-completion-data counsel-css emmet-mode helm-css-scss impatient-mode pug-mode sass-mode haml-mode scss-mode slim-mode tagedit web-beautify web-mode yaml-mode org-modern verb org-journal org-roam-ui websocket simple-httpd org-roam company-terraform feature-mode projectile-rails inflections sql-indent terraform-mode hcl-mode add-node-modules-path bundler chruby counsel-gtags counsel swiper ivy dap-mode lsp-docker bui enh-ruby-mode ggtags minitest prettier-js rake rbenv robe inf-ruby rspec-mode rubocop rubocopfmt ruby-hash-syntax ruby-refactor ruby-test-mode ruby-tools rvm seeing-is-believing treemacs-nerd-icons nerd-icons lsp-treemacs treemacs cfrs pfuture neotree catppuccin-theme org shell-pop smeargle terminal-here treemacs-magit magit with-editor transient magit-section unfill vterm yasnippet-snippets yasnippet ws-butler writeroom-mode winum which-key wgrep vundo volatile-highlights vi-tilde-fringe uuidgen undo-fu-session undo-fu treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org term-cursor symon symbol-overlay string-inflection string-edit-at-point spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-descbinds helm-comint helm-ag google-translate golden-ratio flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-demos elisp-def editorconfig dumb-jump drag-stuff dotenv-mode disable-mouse dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line))
    '(pdf-view-use-imagemagick t)
@@ -883,6 +890,5 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-
    )
   )
